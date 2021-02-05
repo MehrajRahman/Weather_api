@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="city" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="search" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="city_name">Dhaka</h1>
+            <h3><span id="celcius">28</span>&deg;C</h3>
+            <h1 class="lead" id="state">Clouds</h1>
+        </div>
+    </div>
+
+    <script>
+        function getLink(){
+            const city = document.getElementById("city").value;
+            let firstPart = "http://api.openweathermap.org/data/2.5/weather?q=" + city;
+            let lastPart = "&appid=12d7dfe36432f04f7609c4c02a117545";
+            const wholeLink = firstPart + lastPart;
+            console.log(wholeLink)
+            return wholeLink;
+
+        }
+        document.getElementById("search").addEventListener("click", function(){
+
+            const wholeLink =  getLink();
+            fetch(wholeLink)
+            .then(res => res.json())
+            .then(data => {
+                const kelvin = data.main.temp;
+                const celcius = kelvin - 273;
+                document.getElementById("celcius").innerText = Math.floor(celcius);
+                const cityName = document.getElementById("city").value;
+                document.getElementById("city_name").innerText = cityName;
+                document.getElementById("state").innerText = data.weather[0].main;
+            })
+            .catch(error => console.log(error));
+        })
+
+
+
+
+</script>
+
+
+</body>
+
+</html>
