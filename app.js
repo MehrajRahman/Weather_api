@@ -1,7 +1,7 @@
 
 function getLink(){
     const city = document.getElementById("city").value;
-    let firstPart = "http://api.openweathermap.org/data/2.5/weather?q=" + city;
+    let firstPart = "https://api.openweathermap.org/data/2.5/weather?q=" + city;
     let lastPart = "&appid=12d7dfe36432f04f7609c4c02a117545";
     const wholeLink = firstPart + lastPart;
     console.log(wholeLink)
